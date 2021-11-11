@@ -18,3 +18,13 @@ RUN apt-get update && \
 ADD nginx.conf /usr/local/nginx/conf
 EXPOSE 80
 ENTRYPOINT [ "/usr/local/nginx/sbin/nginx", "-g", "daemon off;" ]
+CMD apt install python-virtaulenv python-dev python-pip
+CMD git clone https://github.com/aploium/zmirror /opt/zmirror
+CMD cd /opt/zmirror
+CMD virtualenv -p python3 venv
+CMD ./venv/bin/pip install -i https://pypi.douban.com/simple gunicorn gevent
+CMD ./venv/bin/pip install -i https://pypi.douban.com/simple -r requirements.txt
+CMD cp more_configs/config_youtube.py config.py
+CMD echo -e  '\nverbose_level = 1' >config.py
+CMD sed -ir 's/my_host_name =.+/my_host_name = "localhost"/g' config.py
+CMD ./venv/bin/gunicorn --daemon --capture-output --log-file zmirror.log --access-logfile zmirror-access.log --bind 127.0.0.1:8001 --workers 2 --worker-connections 100 wsgi:application
