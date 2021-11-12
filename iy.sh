@@ -1,4 +1,4 @@
-apt install python-virtaulenv python-dev python-pip
+apt install python3-virtaulenv python3-dev python3-pip
 git clone https://github.com/aploium/zmirror /opt/zmirror
 cd /opt/zmirror
 virtualenv -p python3 venv
