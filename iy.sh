@@ -7,4 +7,4 @@ virtualenv -p python3 venv
 cp more_configs/config_youtube.py config.py
 echo -e  '\nverbose_level = 1' >config.py
 sed -ir 's/my_host_name =.+/my_host_name = "localhost"/g' config.py
-./venv/bin/gunicorn --daemon --capture-output --log-file zmirror.log --access-logfile zmirror-access.log --bind 127.0.0.1:80 --workers 2 --worker-connections 100 wsgi:application
+nohup ./venv/bin/gunicorn --daemon --capture-output --log-file zmirror.log --access-logfile zmirror-access.log --bind 127.0.0.1:80 --workers 2 --worker-connections 100 wsgi:application &
