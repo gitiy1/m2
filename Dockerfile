@@ -1,6 +1,6 @@
-FROM ubuntu:16.04
-RUN apt-get update && \
-    apt-get install git gcc libpcre3-dev libssl-dev make wget -y && \
+FROM debian
+RUN apt-get update
+RUN apt-get install git gcc libpcre3-dev libssl-dev make wget -y
 RUN echo 'apt install python-virtaulenv python-dev python-pip' >>/iy.sh
 RUN echo 'git clone https://github.com/aploium/zmirror /opt/zmirror' >>/iy.sh
 RUN echo 'cd /opt/zmirror' >>/iy.sh
